@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::view('/personallink', 'personallink')->middleware('auth')->name('personallink');
+
+Route::get('/', function() {
+    if (Auth::check()) {
+        return redirect(route('personallink'));
+    } else {
+        return redirect(route('login'));
+    }
 });
+
+Route::get('/login', function () {
+    if (Auth::check()) {
+        return redirect(route('personallink'));
+    }
+    return view('login');
+})->name('login');
+
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/register', function () {
+    if(Auth::check()){
+        return redirect(route('personallink'));
+    }
+    return view('register');
+})->name('register');
+
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect(route('login'));
+})->name('logout');

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PersonalLinkController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/personallink', 'personallink')->middleware('auth')->name('personallink');
+Route::get('/personallink', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personallink');
 
 Route::get('/', function() {
     if (Auth::check()) {

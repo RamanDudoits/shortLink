@@ -11,7 +11,7 @@
             <div class="row 200%">
 
                 <div class="6u 12u$(medium)">
-
+                    User id : {{ $user_id }}
                     <ul class="actions small">
                         <li><a href="{{route('logout')}}" class="button special small">Logout</a></li>
                     </ul>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="6u$ 12u$(xsmall)">
                                 <h5>Short Link</h5>
-                                    /shortLink/
+                                /shortLink/
                             </div>
                             <div class="6u 12u$(xsmall)">
 

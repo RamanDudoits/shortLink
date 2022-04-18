@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function login(Request $request)
-    {
+    public function login(Request $request){
 
         if (Auth::check()) {
             return redirect(route('personallink'));
         }
-        
+
         $requestFields = $request->only(['email', 'password']);
 
         if (Auth::attempt($requestFields)) {

@@ -43,8 +43,11 @@ class Users extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($password)
-    {
+    public function setPasswordAttribute($password){
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function shortLinks(){
+        return $this->belongsToMany(ShortLink::class, 'user_links', 'users_id', 'short_links_id');
     }
 }

@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/personallink', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personallink');
 
+Route::post('/personallink', [PersonalLinkController::class, 'setShortLink']);
+
 Route::get('/', function() {
     if (Auth::check()) {
         return redirect(route('personallink'));

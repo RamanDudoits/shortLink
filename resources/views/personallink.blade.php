@@ -11,24 +11,25 @@
             <div class="row 200%">
 
                 <div class="6u 12u$(medium)">
-                    User id : {{ $user_id }}
                     <ul class="actions small">
                         <li><a href="{{route('logout')}}" class="button special small">Logout</a></li>
                     </ul>
 
                     <h3>Personal Link</h3>
 
-                    <form method="post" action="{{route('register')}}">
+                    <form method="post" action="{{route('personallink')}}">
                         @csrf
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)">
                                 <h5>Link</h5>
                                 <input type="text" name="link" id="link" value="{{ old('link') }}" placeholder="link" />
+                                @error('link')
+                                <div class="p-0 alert alert-danger">
+                                    {{$message}}
+                                </div>
+                                @enderror
                             </div>
-                            <div class="6u$ 12u$(xsmall)">
-                                <h5>Short Link</h5>
-                                /shortLink/
-                            </div>
+
                             <div class="6u 12u$(xsmall)">
 
                                 <!-- Break -->
@@ -40,15 +41,46 @@
                                 </div>
                             </div>
                     </form>
-                    @error('regError')
-                    <div class="p-0 alert alert-danger">
-                        {{$message}}
-                    </div>
-                    @enderror
-                </div>
-            </div>
 
-        </div>
+                    @if(Session::has('error'))
+                    <div class="6u 12u$(medium)">
+                        <div class="p-0 alert alert-danger">
+                            {{Session::get('error')}}
+                        </div>
+                    </div>
+                    @endif
+
+                    @if(Session::has('success'))
+                    <div class="6u 12u$(medium)">
+                        <div class=" p-0 alert alert-success" role="alert">
+                            {{Session::get('success')}}
+                        </div>
+                    </div>
+                    @endif
+
+                </div>
+
+                <div class="6u 12u$(medium)">
+                        <h5>Short Link</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Shrot Link</th>
+                                <th scope="col">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($user->shortLinks as $key => $value)
+                            <tr>
+                                <th scope="row">{{ $key+1 }}</th>
+                                <td>{{ $value['short_link'] }}</td>
+                                <td>{{ $value['link'] }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
     </section>
 

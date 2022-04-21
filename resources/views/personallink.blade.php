@@ -42,6 +42,16 @@
                             </div>
                     </form>
 
+
+                    @isset($link)
+                    <div class="6u 12u$(medium)">
+                        <div class="p-0 alert alert-danger">
+                            This {{$link->link}} already exists.
+                            Short link: <a href="/{{ $link['short_link'] }}/">{{$link['short_link'] }}</a>
+                        </div>
+                    </div>
+                    @endisset
+
                     @if(Session::has('error'))
                     <div class="6u 12u$(medium)">
                         <div class="p-0 alert alert-danger">
@@ -59,9 +69,8 @@
                     @endif
 
                 </div>
-
                 <div class="6u 12u$(medium)">
-                        <h5>Short Link</h5>
+                    <h5>Short Link</h5>
                     <table class="table">
                         <thead>
                             <tr>
@@ -71,6 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($user->shortLinks as $key => $value)
                             <tr>
                                 <th scope="row">{{ $key+1 }}</th>
@@ -81,6 +91,7 @@
                         </tbody>
                     </table>
                 </div>
+
 
     </section>
 

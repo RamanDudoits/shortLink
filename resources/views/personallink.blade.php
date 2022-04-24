@@ -43,31 +43,22 @@
                     </form>
 
 
-                    @isset($link)
+                    @isset($errorReccuring)
                     <div class="6u 12u$(medium)">
                         <div class="p-0 alert alert-danger">
                             This {{$link->link}} already exists.
-                            Short link: <a href="/{{ $link['short_link'] }}/">{{$link['short_link'] }}</a>
+                            Short hash link: <a href="/{{ $link['short_link'] }}/" target="_blank">{{$link['short_link'] }}</a>
                         </div>
                     </div>
                     @endisset
 
-                    @if(Session::has('error'))
-                    <div class="6u 12u$(medium)">
-                        <div class="p-0 alert alert-danger">
-                            {{Session::get('error')}}
-                        </div>
-                    </div>
-                    @endif
-
-                    @if(Session::has('success'))
+                    @isset($success)
                     <div class="6u 12u$(medium)">
                         <div class=" p-0 alert alert-success" role="alert">
-                            {{Session::get('success')}}
+                            Short link created.
                         </div>
                     </div>
-                    @endif
-
+                    @endisset
                 </div>
                 <div class="6u 12u$(medium)">
                     <h5>Short Link</h5>
@@ -84,15 +75,15 @@
                             @foreach($user->shortLinks as $key => $value)
                             <tr>
                                 <th scope="row">{{ $key+1 }}</th>
-                                <td>{{ $value['short_link'] }}</td>
+                                <td><a href="{{ route('short_link', $value['short_link']) }}" target="_blank">{{ route('short_link', $value['short_link']) }}</a></td>
                                 <td>{{ $value['link'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
-
+            </div>
+        </div>
     </section>
 
 </div>

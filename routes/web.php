@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/links/{short_link}', [PersonalLinkController::class, 'redirect'])->name('short_link');
+
 Route::get('/personallink', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personallink');
 
 Route::post('/personallink', [PersonalLinkController::class, 'setShortLink']);

@@ -8,6 +8,7 @@ use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonalLinkController extends Controller
 {
@@ -28,33 +29,45 @@ class PersonalLinkController extends Controller
             'link' => 'required|url',
         ]);
 
-        if($link = ShortLink::where('link', $request->link)->first()){
+        $link = ShortLink::where('link', $request->link)->first();
+        $user = Users::where('id', Auth::user()->id)->first();
+        
 
-            foreach ($link->users as $user) {
-                if ($user) {
+        if($link){
+            //если ссылка есть, проверить Существует ли уже таккая ссылка у юзера
+            foreach ($link->users as $link_user) {
+                if ($link_user->id == $user->id) {
                     return view('personallink', [
                         'link' => $link,
-                        'user' => Users::where('id', Auth::user()->id)->first(),
+                        'user' => $user,
+                        'errorReccuring' => 1,
                     ]);
                 }
             }
-            return 'else';//тут надо привязать к юзеру существующую ссылку
-        } //тут записать юзеру новую ссылку
+            //Если в базе ссылка есть, а у юзера её нет связать эту ссылки с юзером
+            $user->shortLinks()->attach($link->id);
+            return view('personallink', [
+                'user' => $user,
+            ]);
+        } else {
+            //Создание ссылки, если её нет в базе.
+            $user->shortLinks()->create([
+                'link' => $request->link,
+                'short_link' => Str::random(7),
+            ]);
 
-        /*$shrotLink = ShortLink::create([
-            'link' => $request->link,
-            'short_link' => Str::random(7)
-        ]);*/
+            if($user){
+                return view('personallink', [
+                    'user' => $user,
+                    'success' => 1,
+                ]);
+            }
+        }
+    }
 
-        //осталось
-        //сервис метод по скоращению ссылок
-        //проверка на существующую ссылку, если есть привязать существующую ссылку к текущему юзеру, если нет создать новую
+    public function redirect($short_link){
+        $link = ShortLink::where('short_link', $short_link)->firstOrFail();
 
-        /*if($shrotLink){
-            return redirect()->route('personallink')->with('success', 'Short link created.');
-        } else{
-            return redirect()->route('personallink')->with('error','Short link not created.');
-        }*/
-        
+        return redirect($link->link);
     }
 }

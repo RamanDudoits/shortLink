@@ -21,6 +21,6 @@ class ShortLink extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Users::class, 'user_links', 'short_links_id', 'users_id');
+        return $this->belongsToMany(User::class, 'user_links', 'short_links_id', 'users_id');
     }
 }

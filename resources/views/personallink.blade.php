@@ -8,7 +8,7 @@
     <section class="wrapper style1">
 
         <div class="inner">
-            <div class="row 200%">
+            <div class="row 200% append">
 
                 <div class="6u 12u$(medium)">
                     <ul class="actions small">
@@ -17,7 +17,7 @@
 
                     <h3>Personal Link</h3>
 
-                    <form method="post" action="{{route('personallink')}}">
+                    <form class="form-short-link" method="post" action="{{route('personallink')}}">
                         @csrf
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)">
@@ -35,13 +35,13 @@
                                 <!-- Break -->
                                 <div class="12u$">
                                     <ul class="actions">
-                                        <li><input type="submit" value="Save" /></li>
+                                        <li><input class="btn-save" type="submit" value="Save" /></li>
                                         <li><input type="reset" value="Reset" class="alt" /></li>
                                     </ul>
                                 </div>
                             </div>
+                        </div>
                     </form>
-
 
                     @isset($errorReccuring)
                     <div class="6u 12u$(medium)">
@@ -59,8 +59,11 @@
                         </div>
                     </div>
                     @endisset
+
                 </div>
+
                 <div class="6u 12u$(medium)">
+
                     <h5>Short Link</h5>
                     <table class="table">
                         <thead>
@@ -87,4 +90,39 @@
     </section>
 
 </div>
+@endsection
+
+@section('customScript')
+<script>
+    $(document).ready(function() {
+        $('.form-short-link').submit(function(e) {
+            e.preventDefault();
+            let token = $("input[name='_token']").val();
+            let link = $("input[name='link']").val();
+            var formData = new FormData(this);
+            var targetContainer = $('.inner');
+
+            $.ajax({
+                url: '{{route("personallink")}}',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+
+                    $('.append').remove();
+
+                    var elements = $(data).find('.append');
+                    targetContainer.append(elements);
+                },
+                contentType: false,
+                processData: false,
+
+                error: function(data) {
+                    var errors = data;
+                    console.log(data.responseJSON.message);
+                },
+            })
+        });
+
+    })
+</script>
 @endsection

@@ -44,6 +44,8 @@
     <script src="{{ asset("assets/js/util.js") }}"></script>
     <script src="{{ asset("assets/js/main.js") }}"></script>
 
+    @yield('customScript')
+
 </body>
 
 </html>

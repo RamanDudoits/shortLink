@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShortLink;
-use App\Models\UserLink;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonalLinkController extends Controller
 {
     public function index(){
         if (Auth::check()) {
-            $user = Users::where('id', Auth::user()->id)->first();
+            $user = User::where('id', Auth::user()->id)->first();
             return view('personallink', [
                 'user' => $user
             ]);
@@ -25,12 +24,12 @@ class PersonalLinkController extends Controller
 
     public function setShortLink(Request $request){
 
-        $request->validate([
+        Validator::make($request->all(), [
             'link' => 'required|url',
-        ]);
+        ])->validate();
 
         $link = ShortLink::where('link', $request->link)->first();
-        $user = Users::where('id', Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         
 
         if($link){
@@ -60,7 +59,7 @@ class PersonalLinkController extends Controller
                 return view('personallink', [
                     'user' => $user,
                     'success' => 1,
-                ]);
+                ])->render();
             }
         }
     }

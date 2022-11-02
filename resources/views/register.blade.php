@@ -15,7 +15,7 @@
 
                     <h3>Register</h3>
 
-                    <form method="post" action="{{route('register')}}">
+                    <form method="post" class="box" action="{{route('register')}}">
                         @csrf
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)">
@@ -57,14 +57,14 @@
 
                             <!-- Break -->
                             <div class="12u$">
-                                <ul class="actions">
+                                <ul class="actions between-li">
                                     <li><input type="submit" value="Save" /></li>
                                     <li><input type="reset" value="Reset" class="alt" /></li>
                                 </ul>
                             </div>
                         </div>
                     </form>
-                    <ul class="actions small">
+                    <ul class="actions resize_btn">
                         <li><a href="{{route('login')}}" class="button special fit">Login</a></li>
                     </ul>
                     @error('regError')

@@ -8,8 +8,8 @@
 
 ## How this to work <g-emoji class="g-emoji" alias="hammer_and_wrench" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e0.png">🛠</g-emoji>
 
-ᴛʜᴇ ᴜꜱᴇʀ ʀᴇɢɪꜱᴛᴇʀꜱ ᴀɴᴅ ᴛʜᴇɴ ꜱᴇᴇꜱ ᴀ ꜰᴏʀᴍ ꜰᴏʀ ʀᴇᴄᴇɪᴠɪɴɢ ꜱʜᴏʀᴛ ʟɪɴᴋꜱ.
-ᴀꜰᴛᴇʀ ᴇɴᴛᴇʀɪɴɢ ᴛʜᴇ ʟɪɴᴋ ɪɴ ᴛʜᴇ ʟɪɴᴋ ꜰɪᴇʟᴅ, ᴀɴ ᴀᴊᴀx ʀᴇQᴜᴇꜱᴛ ɪꜱ ᴍᴀᴅᴇ ᴛᴏ ᴛʜᴇ ꜱᴇʀᴠᴇʀ ᴡʜᴇʀᴇ ᴛʜᴇ ꜰᴏʀᴍ ɪꜱ ᴠᴀʟɪᴅᴀᴛᴇᴅ ᴜꜱɪɴɢ ʟᴀʀᴀᴠᴇʟ. 
-ᴀꜰᴛᴇʀ ʀᴇᴄᴇɪᴠɪɴɢ ᴀ ᴘᴏꜱɪᴛɪᴠᴇ ʀᴇꜱᴘᴏɴꜱᴇ ꜰʀᴏᴍ ᴛʜᴇ ꜱᴇʀᴠᴇʀ, ᴛʜᴇ ᴜꜱᴇʀ ꜱᴇᴇꜱ ᴀ ᴛᴀʙʟᴇ ᴡɪᴛʜ ᴛʜᴇɪʀ ʟɪɴᴋꜱ. 
-ᴛᴏ ᴘʀᴇᴠᴇɴᴛ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ᴏꜰ ʟɪɴᴋꜱ, ʟɪɴᴋɪɴɢ ᴛʜᴇ ᴜꜱᴇʀ'ꜱ ᴛᴀʙʟᴇꜱ ᴡɪᴛʜ ᴛʜᴇ ʟɪɴᴋ ᴛᴀʙʟᴇ ɪꜱ ɪᴍᴘʟᴇᴍᴇɴᴛᴇᴅ ᴛʜʀᴏᴜɢʜ ᴛʜᴇ ᴍᴀɴʏ-ᴛᴏ-ᴍᴀɴʏ ᴘᴀᴛᴛᴇʀɴ.
+The user registers and then sees a form for receiving short links. 
+After entering the link in the link field, an ajax request is made to the server where the form is validated using laravel. 
+After receiving a positive response from the server, the user sees a table with their links. 
+To prevent duplication of links, linking the user's tables with the link table is implemented through the many-to-many pattern.
 

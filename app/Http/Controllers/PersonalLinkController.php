@@ -69,4 +69,16 @@ class PersonalLinkController extends Controller
 
         return redirect($link->link);
     }
+
+    public function destroy(Request $request)
+    {
+        $link = ShortLink::where('id', $request->link_id)->firstOrFail();
+        $link->delete();
+        $user = User::where('id', Auth::user()->id)->first();
+        return
+            view('personallink', [
+                'user' => $user,
+                'delete_success' => 1,
+            ])->render();
+    }
 }

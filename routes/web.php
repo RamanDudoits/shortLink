@@ -22,7 +22,8 @@ Route::get('/links/{short_link}', [PersonalLinkController::class, 'redirect'])->
 
 Route::get('/personallink', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personallink');
 
-Route::post('/personallink', [PersonalLinkController::class, 'setShortLink']);
+Route::post('/personallink', [PersonalLinkController::class, 'setShortLink'])->name('setShortLink.store');
+Route::post('/destroy', [PersonalLinkController::class, 'destroy'])->name('short_link.destroy');
 
 Route::get('/', function() {
     if (Auth::check()) {

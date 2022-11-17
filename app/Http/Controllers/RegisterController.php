@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
 
         if (Auth::check()) {
             return redirect(route('personallink'));
         }
 
-        $validated = $request->validate([
-            'name' => 'required|regex:/^[a-z]+$/i|max:255|string|min:4',
-            'email' => 'email|required|unique:App\Models\User,email',
-            'password' => 'required|min:4',
-            'repeat_password' => 'required|min:4|same:password',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
             'name' => $validated['name'],

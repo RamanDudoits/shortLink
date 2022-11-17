@@ -87,10 +87,10 @@
                             @foreach($user->shortLinks as $key => $value)
                             <tr>
                                 <th scope="row">{{ $key+1 }}</th>
-                                <td><a href="{{ route('short_link', $value['short_link']) }}" target="_blank">{{ route('short_link', $value['short_link']) }}</a></td>
+                                <td><a href="{{ route('short_link', $value->id) }}" target="_blank">{{ route('short_link', $value['short_link']) }}</a></td>
                                 <td>{{ $value['link'] }}</td>
                                 <td>
-                                    <a class="button small delete_link {{$key}}" data-link_id="{{$value['id']}}" href="#">Delete</a>
+                                    <a class="button small delete_link {{$key}}" data-link_id="{{$value->id}}" href="#">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

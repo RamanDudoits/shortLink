@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function login(Request $request){
+    public function login(LoginRequest $request){
 
         if (Auth::check()) {
             return redirect(route('personallink'));
         }
 
-        $requestFields = $request->only(['email', 'password']);
+        $requestFields = $request->validated();
 
         if (Auth::attempt($requestFields)) {
             return redirect()->intended(route('personallink'));

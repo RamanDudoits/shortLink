@@ -19,7 +19,7 @@
                     <h3>Personal Link</h3>
 
                     <form class="form-short-link" method="post" action="{{route('setShortLink.store')}}">
-                        
+
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)">
                                 <h5>Link</h5>
@@ -48,7 +48,7 @@
                     <div class="6u 12u$(medium)">
                         <div class="p-0 alert alert-danger">
                             This {{$link->link}} already exists.
-                            Short hash link: <a href="/{{ $link['short_link'] }}/" target="_blank">{{$link['short_link'] }}</a>
+                            Short hash link: <a href="{{ route('short_link', $link['id']) }}" target="_blank">{{$link['short_link'] }}</a>
                         </div>
                     </div>
                     @endisset
@@ -78,7 +78,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Shrot Link</th>
+                                <th scope="col">Short Link</th>
                                 <th scope="col">Link</th>
                             </tr>
                         </thead>

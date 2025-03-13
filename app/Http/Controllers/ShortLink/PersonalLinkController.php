@@ -24,7 +24,7 @@ class PersonalLinkController extends BaseController
     public function setShortLink(PersonalLinkRequest $request){
 
         $linkReq = $request->validated();
-        
+
         $result = $this->service->setShortLink($linkReq);
 
         if(isset($result['here']) && $result['here'] > 0){
@@ -34,7 +34,7 @@ class PersonalLinkController extends BaseController
                 'user' => $result['user'],
                 'errorReccuring' => 1,
             ]);
-                
+
         }elseif(isset($result['bind']) && $result['bind'] > 0){
             //Если в базе ссылка есть, а у юзера её нет связать эту ссылки с юзером
             return view('personallink', [
@@ -49,11 +49,11 @@ class PersonalLinkController extends BaseController
         }
     }
 
-    public function redirect(ShortLink $short_link){
-        return redirect($short_link->link);
+    public function redirect(ShortLink $shortLink){
+        return redirect($shortLink->link);
     }
 
-    public function destroy(DestroyRequest $request)
+    public function destroy(DestroyRequest $request): string
     {
         $link = ShortLink::where('id', $request->link_id)->firstOrFail();
         $link->delete();

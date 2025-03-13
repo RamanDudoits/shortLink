@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Services\ShortLink;
+namespace App\Services;
 
 use App\Models\ShortLink;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class Service{
-    
+class ShortLinkService
+{
+
     public function setShortLink($linkReq)
     {
         $link = ShortLink::where('link', $linkReq['link'])->first();

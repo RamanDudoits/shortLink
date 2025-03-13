@@ -1,57 +1,30 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LoginSubmitController;
+use App\Http\Controllers\Auth\LogoutSubmitController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\RegisterSubmitController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ShortLink\PersonalLinkController;
-use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', MainController::class);
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/links/{short_link}', [PersonalLinkController::class, 'redirect'])->name('short_link');
-
-Route::get('/personallink', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personallink');
-
-Route::post('/personallink', [PersonalLinkController::class, 'setShortLink'])->name('setShortLink.store');
-Route::post('/destroy', [PersonalLinkController::class, 'destroy'])->name('short_link.destroy');
-
-Route::get('/', function() {
-    if (Auth::check()) {
-        return redirect(route('personallink'));
-    } else {
-        return redirect(route('login'));
-    }
+Route::prefix('login')->middleware('guest')->group(function () {
+    Route::get('/', LoginController::class)->name('login');
+    Route::post('/', LoginSubmitController::class)->name('loginSubmit');
 });
 
-Route::get('/login', function () {
-    if (Auth::check()) {
-        return redirect(route('personallink'));
-    }
-    return view('login');
-})->name('login');
+Route::prefix('register')->middleware('guest')->group(function () {
+    Route::get('/', RegisterController::class)->name('register');
+    Route::post('/', RegisterSubmitController::class)->name('registerSubmit');
+});
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', LogoutSubmitController::class)->name('logout');
 
-Route::get('/register', function () {
-    if(Auth::check()){
-        return redirect(route('personallink'));
-    }
-    return view('register');
-})->name('register');
+Route::get('/links/{shortLink}', [PersonalLinkController::class, 'redirect'])->name('short_link');
 
-Route::post('/register', [RegisterController::class, 'register']);
-
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect(route('login'));
-})->name('logout');
+Route::get('/personal-link', [PersonalLinkController::class, 'index'])->middleware('auth')->name('personalLink');
+Route::post('/personal-link', [PersonalLinkController::class, 'setShortLink'])->name('setShortLink.store');
+Route::post('/destroy', [PersonalLinkController::class, 'destroy'])->name('short_link.destroy');

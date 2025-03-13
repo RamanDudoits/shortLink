@@ -54,7 +54,7 @@ class ShortLinkService
         /**
          * @var User $link_user
         */
-        return match (isset($link->id)){
+        return match (isset($link->id) && ($linkReq['user_short'] == $link->short_link || empty($linkReq['user_short']))){
             true => $this->attachLink($link, $user),
             false => $this->createLink($user, $linkReq)
         };
@@ -92,7 +92,7 @@ class ShortLinkService
     {
         $user->shortLinks()->create([
             'link' => $linkReq['link'],
-            'short_link' => Str::random(7),
+            'short_link' => $linkReq['user_short'] ?? Str::random(7),
         ]);
 
         return [

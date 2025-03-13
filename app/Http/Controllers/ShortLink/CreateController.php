@@ -11,7 +11,6 @@ class CreateController extends BaseController
     public function __invoke(PersonalLinkRequest $request)
     {
         $linkReq = $request->validated();
-
         return $this->shortLinkService->processLink($linkReq);
     }
 }

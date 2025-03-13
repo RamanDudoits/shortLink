@@ -29,6 +29,13 @@
                                     {{$message}}
                                 </div>
                                 @enderror
+                                <h5>You`r short name, if you need</h5>
+                                <input type="text" name="user_short" id="user_short" value="{{ old('user_short') }}" placeholder="short name" />
+                                @error('user_short')
+                                <div class="p-0 alert alert-danger">
+                                    {{$message}}
+                                </div>
+                                @enderror
                             </div>
 
                             <div class="6u 12u$(xsmall)">
@@ -114,60 +121,50 @@
         });
 
         let targetContainer = $('.inner');
-        $(document).on('click', '.form-short-link', function(e) {
+        $(document).on('click', '.btn-save', function(e) {
             e.preventDefault();
-            let token = $("input[name='_token']").val();
-            let link = $("input[name='link']").val();
-            var formData = new FormData(this);
-
+            var formData = new FormData($(this).closest('form')[0]);
             $.ajax({
                 url: '{{route("setShortLink.store")}}',
                 type: 'POST',
                 data: formData,
                 success: function(data) {
-
                     $('.append').remove();
                     var elements = $(data).find('.append');
                     targetContainer.append(elements);
                 },
                 contentType: false,
                 processData: false,
-
-                error: function(data) {
-                    var errors = data;
-                    console.log(data.responseJSON.message);
-                },
+                error: function(response) {
+                    var errors = response.responseJSON.errors;
+                    $('.error-message').remove();
+                    $.each(errors, function(field, messages) {
+                        var inputField = $('[name="' + field + '"]');
+                        inputField.after('<div class="p-0 alert alert-danger">' + messages[0] + '</div>');
+                    });
+                }
             })
         });
 
-        $(document).on('click', '#link_table', function(e) {
+        $(document).on('click', '.delete_link', function(e) {
             e.preventDefault();
-            if ($(e.target).hasClass('delete_link')) {
-                let link_id = $(e.target).attr('data-link_id');
-                var form_data = new FormData();
-                form_data.append('link_id', link_id);
-                $.ajax({
-                    url: '{{route("short_link.destroy")}}',
-                    type: 'POST',
-                    dataType: "text",
-                    data: form_data,
-                    success: function(data) {
-
-                        $('.append').remove();
-                        var elements = $(data).find('.append');
-                        targetContainer.append(elements);
-                    },
-                    contentType: false,
-                    processData: false,
-
-                    error: function(data) {
-                        var errors = data;
-                        console.log(data.responseJSON.message);
-                    },
-                });
-            } else {
-                return;
-            }
+            let link_id = $(this).data('link_id');
+            $.ajax({
+                url: '{{route("short_link.destroy")}}',
+                type: 'POST',
+                data: {
+                    link_id: link_id,
+                },
+                success: function(response) {
+                    $('.append').remove();
+                    var elements = $(response).find('.append');
+                    targetContainer.append(elements);
+                },
+                error: function(response) {
+                    var errors = response.responseJSON.errors;
+                    alert(errors.link_id ?? errors.link_id[0]);
+                },
+            });
         });
     })
 </script>

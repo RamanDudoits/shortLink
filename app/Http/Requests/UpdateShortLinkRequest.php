@@ -25,7 +25,7 @@ class UpdateShortLinkRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:10',
+            'name' => 'string|max:50',
             'link' => 'required|url',
             'user_short' => [
                 'nullable',

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ asset("assets/css/main.css") }}" />
+    <link rel="stylesheet" href="{{ asset("assets/css/bootstrap.css") }}" />
 </head>
 <body>
     <!-- Header -->
@@ -12,8 +13,13 @@
         <div class="logo">Link shortenig<a href="{{route('login')}}"> Service</a></div>
     </header>
     <!-- Main -->
-    @yield('content', 'content')
-
+    <div id="main">
+        <section class="wrapper style1">
+            <div class="inner">
+                @yield('content', 'content')
+            </div>
+        </section>
+    </div>
     <!-- Footer -->
     <footer id="footer">
         <div class="copyright">

@@ -24,21 +24,21 @@ class ShortLinkService
      */
     public function processLink(array $linkReq)
     {
-        $handleProcess = $this->setShortLink($linkReq);
+        $result = $this->setShortLink($linkReq);
 
-        return match ($handleProcess['action']) {
+        return match ($result['action']) {
             'self' => view('personalLink', [
-                'link' => $handleProcess['link'],
-                'user' => $handleProcess['user'],
-                'errorReccuring' => 1,
+                'link' => $result['link'],
+                'user' => $result['user'],
+                'errorReccuring' => true,
             ]),
             'attach' => view('personalLink', [
-                'user' => $handleProcess['user'],
+                'user' => $result['user'],
             ]),
             'create' => view('personalLink', [
-                'user' => $handleProcess['user'],
-                'success' => 1,
-            ])->render()
+                'user' => $result['user'],
+                'successCreated' => true,
+            ]),
         };
     }
 
@@ -91,6 +91,7 @@ class ShortLinkService
     private function createLink(User $user, array $linkReq): array
     {
         $user->shortLinks()->create([
+            'name' => $linkReq['name'] ?? null,
             'link' => $linkReq['link'],
             'short_link' => $linkReq['user_short'] ?? Str::random(7),
         ]);

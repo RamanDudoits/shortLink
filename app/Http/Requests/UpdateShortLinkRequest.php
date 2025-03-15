@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class PersonalLinkRequest extends FormRequest
+class UpdateShortLinkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +27,14 @@ class PersonalLinkRequest extends FormRequest
         return [
             'name' => 'string|max:10',
             'link' => 'required|url',
-            'user_short' => 'nullable|string|min:3|max:7|alpha_dash|unique:short_links,short_link',
+            'user_short' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:7',
+                'alpha_dash',
+                Rule::unique('short_links', 'short_link')->ignore($this->route('shortLink')),
+            ],
         ];
     }
 }

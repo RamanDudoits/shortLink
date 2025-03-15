@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $name
  * @property string $link
  * @property string $short_link
  * @property Collection $users
@@ -22,6 +23,7 @@ class ShortLink extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'link',
         'short_link',
     ];

@@ -3,13 +3,7 @@
 @section('title' , 'login')
 
 @section('content')
-
-<div id="main">
-
-    <section class="wrapper style1">
-
-        <div class="inner">
-            <div class="row 200%">
+    <div class="row 200%">
 
                 <div class="6u 12u$(medium)">
 
@@ -47,8 +41,4 @@
                     @enderror
                 </div>
             </div>
-        </div>
-    </section>
-</div>
-
 @endsection

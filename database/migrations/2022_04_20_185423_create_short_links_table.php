@@ -17,6 +17,7 @@ class CreateShortLinksTable extends Migration
             $table->id();
             $table->string('link');
             $table->string('short_link');
+            $table->unsignedBigInteger('clicks')->default(0);;
             $table->timestamps();
         });
     }

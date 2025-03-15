@@ -30,4 +30,16 @@ class ShortLink extends Model
     {
         return $this->belongsToMany(User::class, 'user_links', 'short_links_id', 'users_id');
     }
+
+    /**
+     * Resolve the model for route model binding.
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        if (is_numeric($value)) {
+            return $this->where('id', $value)->firstOrFail();
+        }
+
+        return $this->where('short_link', $value)->firstOrFail();
+    }
 }

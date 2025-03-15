@@ -8,6 +8,7 @@ class RedirectController extends BaseController
 {
     public function __invoke(ShortLink $shortLink)
     {
+        $shortLink->increment('clicks');
         return redirect($shortLink->link);
     }
 }

@@ -6,8 +6,10 @@ use App\Models\ShortLink;
 use App\Models\User;
 use App\Repositories\ShortLinkRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class ShortLinkService
 {
@@ -20,7 +22,7 @@ class ShortLinkService
 
     /**
      * @param array $linkReq
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|string
+     * @return Application|Factory|View
      */
     public function processLink(array $linkReq)
     {
@@ -76,7 +78,7 @@ class ShortLinkService
                 ];
             }
         }
-        $user->shortLinks()->attach($link->id);
+        $this->userRepository->attachLinkByUser($user, $link);
         return [
             'action' => 'attach',
             'user' => $user,
@@ -90,11 +92,7 @@ class ShortLinkService
      */
     private function createLink(User $user, array $linkReq): array
     {
-        $user->shortLinks()->create([
-            'name' => $linkReq['name'] ?? null,
-            'link' => $linkReq['link'],
-            'short_link' => $linkReq['user_short'] ?? Str::random(7),
-        ]);
+        $this->userRepository->createLinkForUser($user, $linkReq);
 
         return [
             'action' => 'create',

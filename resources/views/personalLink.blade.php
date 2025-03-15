@@ -9,13 +9,11 @@
         <ul class="actions small">
             <li><a href="{{route('logout')}}" class="button special small">{{__('page.logout')}}</a></li>
         </ul>
-
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-
         <h3>{{__('page.personal_link')}}</h3>
         <form class="form-short-link" method="post" action="{{route('short_link.store')}}">
             @csrf

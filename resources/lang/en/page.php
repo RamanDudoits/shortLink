@@ -6,6 +6,7 @@ return [
     'link' => 'Link',
     'need_str_by_link' => 'You`r short string, if you need',
     'save' => 'Save',
+    'reset' => 'Reset',
     'already_link' => 'This :link already exists.',
     'short_has' => 'Short hash link: ',
     'created_link' => 'Short link created.',
@@ -15,6 +16,15 @@ return [
     'edit' => 'Edit',
     'back' => 'Back',
     'name_link' => 'Name link',
+    'name_service' => 'Link shortening service',
+    'login' => 'Sign in',
+    'fields' => [
+        'email' => 'Email',
+        'password' => 'Password',
+        'repeat_password' => 'Repeat Password',
+        'name' => 'Name'
+    ],
+    'registration' => 'Sign up',
     'update' => [
         'success' => 'Short link updated.',
         'failed' => 'Short link update failed.',

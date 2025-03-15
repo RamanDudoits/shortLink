@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginSubmitController extends Controller
 {
-
     public function __invoke(LoginRequest $request)
     {
         $requestFields = $request->validated();
@@ -16,7 +15,6 @@ class LoginSubmitController extends Controller
         if (Auth::attempt($requestFields)) {
             return redirect()->intended(route('personalLink'));
         }
-
         return redirect(route('login'))->withErrors(['regError' => 'This user does not exist ']);
     }
 }

@@ -10,7 +10,7 @@
 <body>
     <!-- Header -->
     <header id="header" class="">
-        <div class="logo">Link shortenig<a href="{{route('login')}}"> Service</a></div>
+        <div class="logo"><a href="{{route('login')}}">{{__('page.name_service')}}</a></div>
     </header>
     <!-- Main -->
     <div id="main">
@@ -24,10 +24,10 @@
     <footer id="footer">
         <div class="copyright">
             <ul class="icons">
-                <li><a href="https://twitter.com/Raman17046245" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="https://www.instagram.com/romandudoits/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="https://www.linkedin.com/in/raman-dudoits-601b84217/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
-                <li><a href="https://github.com/RamanDudoits/" class="icon fa-github"><span class="label">Linkedin</span></a></li>
+                <li><a href="https://twitter.com/Raman17046245" class="icon fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.instagram.com/romandudoits/" class="icon fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+                <li><a href="https://www.linkedin.com/in/raman-dudoits-601b84217/" class="icon fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+                <li><a href="https://github.com/RamanDudoits/" class="icon fa-github" target="_blank"><span class="label">Linkedin</span></a></li>
             </ul>
             <p>&copy; Dudoits. All rights reserved.</p>
         </div>
